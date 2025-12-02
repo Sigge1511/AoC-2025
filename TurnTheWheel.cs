@@ -58,7 +58,7 @@ namespace AoC_2025
 
         public int AddToZeroNumber(int zeronumber)
         {
-            return zeronumber++;
+            return zeronumber = (zeronumber+1);
         }
 
 
