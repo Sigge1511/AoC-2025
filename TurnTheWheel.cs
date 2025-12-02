@@ -12,22 +12,15 @@ namespace AoC_2025
         //efter att ha snurrat, andra är det uppdaterade antalet gånger hjulet har pekat på noll.
         public (int, int) SpinL(int pointingto, int turnSteps, int zeronumber)
         {
-            foreach (var turns in Enumerable.Range(0, turnSteps))
-            {
-                pointingto--;
-                if (pointingto == 100)
-                {
-                    pointingto = 0;
-                }
-                else if (pointingto == -1)
-                {
-                    pointingto = 99;
-                }
-                if (pointingto == 0)
-                {
-                    zeronumber = AddToZeroNumber(zeronumber);
-                }
+            pointingto = ((pointingto - turnSteps) % 100 + 100) % 100;
+            // Blir tex: ((1 - 3) % 100 + 100) % 100
+            //             = (-2 % 100 + 100) % 100
+            //             = (-2 + 100) % 100
+            //             = 98 % 100 = 98
 
+            if (pointingto == 0)
+            {
+                zeronumber++;
             }
             return (pointingto, zeronumber);
         }
@@ -36,30 +29,20 @@ namespace AoC_2025
         //efter att ha snurrat, andra är det uppdaterade antalet gånger hjulet har pekat på noll.
         public (int, int) SpinR(int pointingto, int turnSteps, int zeronumber)
         {
-            foreach (var turns in Enumerable.Range(0, turnSteps))
-            {
-                pointingto++;
-                if (pointingto == 100)
-                {
-                    pointingto = 0;
-                }
-                else if (pointingto == -1)
-                {
-                    pointingto = 99;
-                }
-                if (pointingto == 0)
-                {
-                    zeronumber = AddToZeroNumber(zeronumber);
-                }
+            pointingto = (pointingto + turnSteps) % 100;
+            //Använder % 100 på slutet för att snurra "runt" på hjulet
 
+            if (pointingto == 0)
+            {
+                zeronumber++;
             }
             return (pointingto, zeronumber);
         }
 
-        public int AddToZeroNumber(int zeronumber)
-        {
-            return zeronumber = (zeronumber+1);
-        }
+        //public int AddToZeroNumber(int zeronumber)
+        //{
+        //    return zeronumber = (zeronumber+1);
+        //}
 
 
 
