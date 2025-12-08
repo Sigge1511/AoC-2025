@@ -6,31 +6,21 @@ public class AoC2025
 {
     public static void Main()
     {
-        long password = 0;        
-        List<RangeOfNumbers> numberRange = new List<RangeOfNumbers>();
+        int password = 0;        
+        List<string> batteryBankNumbers = new List<string>();
 
         string jsonAoCInfo = File.ReadAllText("C:\\Users\\msigf\\source\\repos\\AoC-2025\\IntructionsDoc.json");
-        JsonArray jsonArray = JsonSerializer.Deserialize<JsonArray>(jsonAoCInfo);
 
-        foreach (JsonNode row in jsonArray)
+        //Går igenom varje rad i json-filen
+        //och lägger till värdet i listan
+        foreach (JsonNode batteryBank in JsonNode.Parse(jsonAoCInfo).ToString())
         {
-            string rangeString = row.GetValue<string>();
-            
-            // Dela strängen vid bindestrecket och lägg i array
-            string[] parts = rangeString.Split('-');
-            long.TryParse(parts[0], out long startNumber);//Första talet på plats 0
-            long.TryParse(parts[1], out long endNumber);//Andra talet på plats 1
-                        
-            // Lägg till det parsa intervallet i listan    
-            numberRange.Add(new RangeOfNumbers    
-            {
-                Start = startNumber,
-                End = endNumber
-            });   
+            batteryBankNumbers.Add(batteryBank.ToString());
         }
+
         
         ElfHelper elfHelper = new ElfHelper();
-        password = elfHelper.FindPassword(numberRange, password);
+        password = elfHelper.FindPassword(batteryBankNumbers, password);
 
         Console.WriteLine($"The new password is: {password}. \nGood luck!");
     }
